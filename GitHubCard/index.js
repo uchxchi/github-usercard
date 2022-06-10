@@ -45,9 +45,9 @@ axios.get('https://api.github.com/users/uchxchi')
 
 const followersArray = ['kip-guile', 'coremand', 'dmedunoye', 'justsml', ' bigknell'];
 const getData = followersArray.forEach(str => {
-  // axios.get('https://api.github.com/users/')
+  axios.get('https://api.github.com/users/') //something like this? 
 })
-console.log(getData)
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
