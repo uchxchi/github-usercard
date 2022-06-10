@@ -10,8 +10,8 @@ axios.get('https://api.github.com/users/uchxchi')
   .then(res => {
     const info = res.data
     const gitCard = myGitCard(info)
-    console.log(gitCard)
-    console.log(info)
+    // console.log(gitCard)
+    // console.log(info)
     const div = document.querySelector('.cards')
     div.append(gitCard)
 
@@ -43,11 +43,14 @@ axios.get('https://api.github.com/users/uchxchi')
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['kip-guile', 'coremand', 'dmedunoye', 'justsml', ' bigknell'];
-const getData = followersArray.forEach(str => {
-  axios.get('https://api.github.com/users/') //something like this? 
+const followersArray = ['kip-guile', 'coremand','dmedunoye', 'tetondan', 'dustinmyers', 'justsml', ' bigknell'];
+followersArray.forEach(str => {
+  axios.get(`https://api.github.com/users/${str}`)
+.then(response => {
+     document.querySelector('.cards').appendChild(myGitCard(response.data));
 })
-
+.catch(err => console.error(err))
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
