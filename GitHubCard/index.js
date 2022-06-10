@@ -1,8 +1,23 @@
+import axios from "axios";
+console.log(axios)
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/uchxchi')
+  .then(res => {
+    const info = res.data
+    const gitCard = myGitCard(info)
+    // console.log(gitCard)
+    // console.log(info)
+    const div = document.querySelector('.cards')
+    div.append(gitCard)
+
+  })
+  
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +43,14 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['kip-guile', 'coremand','dmedunoye', 'tetondan', 'dustinmyers', 'justsml', ' bigknell'];
+followersArray.forEach(str => {
+  axios.get(`https://api.github.com/users/${str}`)
+.then(response => {
+     document.querySelector('.cards').appendChild(myGitCard(response.data));
+})
+.catch(err => console.error(err))
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +71,56 @@ const followersArray = [];
       </div>
     </div>
 */
+function myGitCard ({name, location, html_url, avatar_url, login, followers, following, bio}){
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const h3 = document.createElement('h3')
+  const username = document.createElement('p')
+  const locati0n = document.createElement('p')
+  const Profile = document.createElement('p')
+  const address = document.createElement('a')
+  const p = document.createElement('p')
+  const p2 = document.createElement('p')
+  const p3 = document.createElement('p')
+
+  card.classList.add('card')
+  img.src = avatar_url
+  cardInfo.classList.add('card-info')
+  h3.classList.add('name')
+  username.classList.add('username')
+  h3.textContent = `Name: ${name}`
+  locati0n.textContent = `Location: ${location}`
+  Profile.textContent = `Profile:`
+  address.href = html_url
+  address.textContent = html_url
+  username.textContent = `Username: ${login}`
+  p.textContent = `Followers: ${followers}`
+  p2.textContent = `Following: ${following}`
+  p3.textContent = `Bio: ${bio}`
+
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(h3)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(locati0n)
+  cardInfo.appendChild(Profile)
+  Profile.appendChild(address)
+  cardInfo.appendChild (p)
+  cardInfo.appendChild(p2)
+  cardInfo.appendChild(p3)  
+       return card
+}
+
+
+// const result = axios.get('https://api.github.com/users/uchxchi')
+//   .then(res => {
+//     const info = res.data
+//     console.log(info)
+  
+//   })
+ 
+
 
 /*
   List of LS Instructors Github username's:
